@@ -17,4 +17,24 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult CargarTareas()
+    {
+        return View();
+    }
+    public IActionResult CrearTareas()
+    {
+        return View();
+    }
+    public IActionResult CrearTareaGuardar()
+    {
+        return View();
+    }
+    public IActionResult FinalizarTarea()
+    {
+        return View();
+    }
+    public IActionResult EliminarTarea()
+    {
+        return View();
+    }
 }

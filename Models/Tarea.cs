@@ -1,0 +1,32 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using TP07_ROTH.Models;
+using Newtonsoft.Json;
+using Microsoft.Data.SqlClient;
+
+namespace TP07_ROTH.Models
+{
+    public class Tarea
+    {
+        [JsonProperty]
+        public int ID { get; set; }
+        [JsonProperty]
+        public bool IDUsuario { get; set; }
+        [JsonProperty]
+        public string Titulo { get; set; }
+
+        [JsonProperty]
+        public int Descripcion { get; set; }
+        [JsonProperty]
+        public DateTime Fecha { get; set; }
+        [JsonProperty]
+        public bool Finalizada { get; set; }
+
+
+
+        public Tarea()
+        {
+        }
+    }
+}
