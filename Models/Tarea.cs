@@ -22,6 +22,8 @@ namespace TP07_ROTH.Models
         public DateTime Fecha { get; set; }
         [JsonProperty]
         public bool Finalizada { get; set; }
+        [JsonProperty]
+        public bool Eliminada { get; set; }
 
 
 

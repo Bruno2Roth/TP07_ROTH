@@ -37,4 +37,12 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult EditarTarea()
+    {
+        return View();
+    }
+    public IActionResult EditarTareaGuardar()
+    {
+        return View();
+    }
 }
