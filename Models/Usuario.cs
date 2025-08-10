@@ -12,7 +12,7 @@ namespace TP07_ROTH.Models
         [JsonProperty]
         public int ID {get; set;}
         [JsonProperty]
-        public string Ussername { get; set; }
+        public string Username { get; set; }
 
         [JsonProperty]
         public string Password {get; set;}

@@ -9,129 +9,168 @@ namespace TP07_ROTH.Models
     {
         private static string _connectionString = "Server=localhost;Database=TP6_Introducciónabasededatos;Integrated Security=True;TrustServerCertificate=True;";
 
-        public static bool VerificarContraseña(string user, string password) //verficar contraseña
+        public static Usuario ObtenerPorUsername(string username)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Usuarios WHERE Username = @Username";
+                return connection.QueryFirstOrDefault<Usuario>(query, new { Username = username });
+            }
+        }
+
+        public static bool VerificarContraseña(string Username, string password) //verficar contraseña
         {
             Usuario x = new Usuario();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Integrantes WHERE user = @ussername";
-                x = connection.QueryFirstOrDefault<Usuario>(query, new { ussername = user });
+                string query = "SELECT * FROM Usuarios WHERE Username = @Username";
+                x = connection.QueryFirstOrDefault<Usuario>(query, new { Username = Username });
             }
-            if (x == null) return false;
 
-            bool logeado = false;
-            if (x.Password == password)
+            if (x == null || x.Password != password)
             {
-                logeado = true;
+                return false;
             }
-
-            return logeado;
+            else return true;
         }
 
-        public static List<Usuario> TraerTareas(int IDusuario) //TraerTareas
+        public static List<Tarea> TraerTareas(int IDusuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Integrantes WHERE IDTareas = @tareas";
-                return connection.Query<Usuario>(query, new { tareas = IDusuario }).ToList();
+                string query = "SELECT * FROM Tareas WHERE IDUsuario = @IDUsuario AND Eliminada = 0";
+                return connection.Query<Tarea>(query, new { IDUsuario = IDusuario }).ToList();
             }
         }
 
-        public static Tarea TraerTarea(int IDtarea) //TraerTarea
+
+        public static Tarea TraerTarea(int IDTarea)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Grupos WHERE IDTarea = @IDTarea";
-                return connection.QueryFirstOrDefault<Tarea>(query, new { IDTarea = IDtarea });
+                string query = "SELECT * FROM Tareas WHERE ID = @ID AND Eliminada = 0";
+                return connection.QueryFirstOrDefault<Tarea>(query, new { ID = IDTarea });
             }
         }
 
-        public static void Registro(Usuario usuario) //Registro
+        public static bool Registro(Usuario usuario) //Registro
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "IF EXISTS(SELECT 1 FROM Usuarios WHERE Ussername = @Ussername)";
-                if (query != "1")
+                string QueryExiste = "SELECT 1 FROM Usuarios WHERE Username = @Username";
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { usuario.Username });
+                if (existe != 1)
                 {
-                    using (SqlConnection connection1 = new SqlConnection(_connectionString))
-                    {
-                        string query1 = @"INSERT INTO Usuarios(ID, Usuario, Contraseña, Nombre, Apellido, Foto, UltimoLogin)
-                               VALUES (@ID, @Ussername, @Password, @Nombre, @Apellido, @Foto, @UltimoLogin)";
+                    string query = @"INSERT INTO Usuarios(Username, Password, Nombre, Apellido, Foto, UltimoLogin)
+                               VALUES (@Username, @Password, @Nombre, @Apellido, @Foto, @UltimoLogin)";
 
-                        connection1.Execute(query1, new { usuario.ID, usuario.Ussername, usuario.Password, usuario.Nombre, usuario.Apellido, usuario.Foto });
-                    }
+                    connection.Execute(query, new { usuario.Username, usuario.Password, usuario.Nombre, usuario.Apellido, usuario.Foto, usuario.UltimoLogin });
+                    return true; //mensaje de que el usuario se registro
                 }
                 else
                 {
-                    //mensaje de que el usuario ya esta ocupado
+                    return false; //mensaje de que el usuario ya esta en uso
                 }
             }
         }
-        public static void CrearTarea(Tarea tarea) //CrearUsuario
+        public static bool CrearTarea(Tarea tarea) //CrearTarea
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "IF EXISTS(SELECT 1 FROM Tareas WHERE Titulo = @Titulo)";
-                if (query != "1")
-                {
-                    using (SqlConnection connection1 = new SqlConnection(_connectionString))
-                    {
-                        string query1 = @"INSERT INTO Tareas(ID, IDUsuario, Titulo, Descripcion, Fecha, Finalizada, Eliminada) 
-                               VALUES (@ID, @IDUsuario, @Titulo, @Descripcion, @Fecha, @Finalizada, @Eliminada)";
+                string QueryExiste = "SELECT 1 FROM Tareas WHERE Titulo = @Titulo";
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { tarea.Titulo });
 
-                        connection.Execute(query, new { tarea.ID, tarea.IDUsuario, tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada });
-                    }
+                if (existe != 1)// no existe una tarea con ese nombre
+                {
+                    string query = @"INSERT INTO Tareas(IDUsuario, Titulo, Descripcion, Fecha, Finalizada, Eliminada) 
+                               VALUES (@IDUsuario, @Titulo, @Descripcion, @Fecha, @Finalizada, @Eliminada)";
+                    connection.Execute(query, new { tarea.IDUsuario, tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada });
+
+                    return true; // tarea creada 
                 }
                 else
                 {
-                    //mensaje de que el nombre de la tarea ya esta en uso
+                    return false; // ya existe una tarea con ese título
                 }
             }
         }
-        public static void EliminarTarea(int IDtarea) //EliminarTarea
+
+        public static bool EliminarTarea(int IDdelaTarea) //EliminarTarea
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "IF EXISTS(SELECT 1 FROM Grupos WHERE IDTarea = @usuario.IDTarea)";
-                if (query == "1")
+                string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @IDdelaTarea";
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { IDdelaTarea });
+                if (existe == 1)
                 {
-                    using (SqlConnection connection1 = new SqlConnection(_connectionString))
-                    {
-                        string query1 = @"UPDATE Tareas SET Tareas.Eliminada = 1 WHERE Tareas.ID = @IDdelaTarea"; //falta ver que actualice el del usuario especificado
-                    }
+                    string query = @"UPDATE Tareas SET Tareas.Eliminada = 1 WHERE Tareas.ID = @IDdelaTarea";
+                    connection.Execute(query, new { IDdelaTarea });
+                    return true; //"se elimino""
                 }
                 else
                 {
-                    //mensaje de que la tarea no existe
+                    return false; //"no se elimino"
                 }
             }
         }
-        public static void ActualizarTarea(Tarea tarea) //ActualizarTarea
-
+        public static bool ActualizarTarea(Tarea tarea) //ActualizarTarea
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "IF EXISTS(SELECT 1 FROM Tareas WHERE ID = @tarea.ID)";
-                if (query == "1")
+                // Verificar que la tarea existe
+                string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0";
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { ID = tarea.ID });
+
+                if (existe == 1)
                 {
-                    using (SqlConnection connection1 = new SqlConnection(_connectionString))
-                    {
-                        string query1 = @"UPDATE Tareas SET Eliminada = 1 WHERE ID = @tarea.ID";
-                    }
+                    string query = @"UPDATE Tareas SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Finalizada = @Finalizada, Eliminada = @Eliminada WHERE ID = @ID";
+
+                    connection.Execute(query, new { tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada, tarea.ID });
+
+                    return true; // Se actualizó 
                 }
                 else
                 {
-                    //mensaje de que la tarea no existe
+                    return false; // No existe la tarea
                 }
             }
         }
-        public static void FinalizarTarea(int IDtarea)
-        {
 
-        }
-        public static void ActualizarFechaLogin(int IDusuario)
+        public static bool FinalizarTarea(int IDdelaTarea)
         {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0";
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { ID = IDdelaTarea });
 
+                if (existe == 1)
+                {
+                    string query = @"UPDATE Tareas SET Finalizada = 1 WHERE ID = @ID";
+                    connection.Execute(query, new { ID = IDdelaTarea });
+                    return true; //finalizada
+                }
+                else
+                {
+                    return false; //no existe
+                }
+            }
         }
+
+        public static void ActualizarFechaLogin(int IDdelUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string QueryExiste = "SELECT 1 FROM Usuarios WHERE ID = @ID";
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { ID = IDdelUsuario });
+
+                if (existe == 1)
+                {
+                    DateTime FechaActual = DateTime.Now;
+                    string query = @"UPDATE Usuarios SET UltimoLogin = @FechaActual WHERE ID = @ID";
+                    connection.Execute(query, new { FechaActual, ID = IDdelUsuario });
+                }
+            }
+        }
+
     }
 }

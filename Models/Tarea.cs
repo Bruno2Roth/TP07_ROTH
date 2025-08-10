@@ -12,12 +12,12 @@ namespace TP07_ROTH.Models
         [JsonProperty]
         public int ID { get; set; }
         [JsonProperty]
-        public bool IDUsuario { get; set; }
+        public int IDUsuario { get; set; }
         [JsonProperty]
         public string Titulo { get; set; }
 
         [JsonProperty]
-        public int Descripcion { get; set; }
+        public string Descripcion { get; set; }
         [JsonProperty]
         public DateTime Fecha { get; set; }
         [JsonProperty]

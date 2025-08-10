@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Lista de Tareas";
+    var tareas = ViewBag.Tareas as List<TP07_ROTH.Models.Tarea>;
+}
+
+<div class="container mt-4">
+    <h2>Mis Tareas</h2>
+    <a class="btn btn-success mb-3" href="@Url.Action("CrearTarea", "Home")">Crear Nueva Tarea</a>
+
+    @if (tareas != null && tareas.Count > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Finalizada</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in tareas)
+                {
+                    <tr>
+                        <td>@t.Titulo</td>
+                        <td>@t.Descripcion</td>
+                        <td>@t.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@(t.Finalizada ? "Sí" : "No")</td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" href="@Url.Action("ModificarTarea", "Home", new { id = t.ID })">Editar</a>
+                            <a class="btn btn-success btn-sm" href="@Url.Action("FinalizarTarea", "Home", new { id = t.ID })">Finalizar</a>
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("EliminarTarea", "Home", new { id = t.ID })">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No tienes tareas registradas.</p>
+    }
+</div>
