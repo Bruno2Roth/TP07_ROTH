@@ -7,17 +7,14 @@
     <p>Selecciona una opción del menú:</p>
 
     <div class="list-group">
-        <!-- Opciones del HomeController -->
         <a class="list-group-item list-group-item-action" href="@Url.Action("Index", "Home")">🏠 Inicio</a>
         <a class="list-group-item list-group-item-action" href="@Url.Action("VerTareas", "Home")">📋 Ver Tareas</a>
         <a class="list-group-item list-group-item-action" href="@Url.Action("CrearTarea", "Home")">✏️ Crear Nueva Tarea</a>
         <a class="list-group-item list-group-item-action" href="@Url.Action("ModificarTarea", "Home")">🛠️ Modificar Tarea</a>
 
-        <!-- Podrías agregar también estas acciones si existen -->
         <a class="list-group-item list-group-item-action" href="@Url.Action("FinalizarTarea", "Home")">✅ Finalizar Tarea</a>
         <a class="list-group-item list-group-item-action" href="@Url.Action("EliminarTarea", "Home")">🗑️ Eliminar Tarea</a>
 
-        <!-- Opciones de cuenta -->
         <a class="list-group-item list-group-item-action text-danger" href="@Url.Action("CerrarSesion", "Account")">🚪 Cerrar Sesión</a>
     </div>
 </div>

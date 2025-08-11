@@ -9,20 +9,24 @@ namespace TP07_ROTH.Controllers
         {
             if (HttpContext.Session.GetString("Logeado") != "true")
                 return RedirectToAction("Login", "Account");
-
-            int usuarioID = HttpContext.Session.GetInt32("UsuarioID") ?? 0;
-            ViewBag.Tareas = BD.TraerTareas(usuarioID);
             return View();
         }
+
 
         public IActionResult CargarTareas()
         {
             if (HttpContext.Session.GetString("Logeado") != "true")
+            {
                 return RedirectToAction("Login", "Account");
+            }
+            string username = HttpContext.Session.GetString("Username");
 
-            int usuarioID = HttpContext.Session.GetInt32("UsuarioID") ?? 0;
-            ViewBag.Tareas = BD.TraerTareas(usuarioID);
-            return View("Index");
+            Usuario usuario = BD.ObtenerPorUsername(username);
+            int IDdelUsuario = usuario.ID;
+
+            ViewBag.Tareas = BD.TraerTareas(IDdelUsuario);
+
+            return View("VerTarea");
         }
 
         public IActionResult CrearTareas()

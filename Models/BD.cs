@@ -7,7 +7,7 @@ namespace TP07_ROTH.Models
 {
     public static class BD
     {
-        private static string _connectionString = "Server=localhost;Database=TP6_Introducciónabasededatos;Integrated Security=True;TrustServerCertificate=True;";
+        private static string _connectionString = "Server=localhost;Database=TP07_ROTH;Integrated Security=True;TrustServerCertificate=True;";
 
         public static Usuario ObtenerPorUsername(string username)
         {
@@ -57,10 +57,13 @@ namespace TP07_ROTH.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                Console.WriteLine("Username recibido: " + usuario.Username);
+
                 string QueryExiste = "SELECT 1 FROM Usuarios WHERE Username = @Username";
-                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { usuario.Username });
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { Username = usuario.Username });
                 if (existe != 1)
                 {
+                    usuario.UltimoLogin = DateTime.Now;
                     string query = @"INSERT INTO Usuarios(Username, Password, Nombre, Apellido, Foto, UltimoLogin)
                                VALUES (@Username, @Password, @Nombre, @Apellido, @Foto, @UltimoLogin)";
 
