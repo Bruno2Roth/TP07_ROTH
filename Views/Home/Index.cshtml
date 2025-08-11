@@ -6,15 +6,37 @@
     <h2>Bienvenido @Context.Session.GetString("Username")</h2>
     <p>Selecciona una opción del menú:</p>
 
-    <div class="list-group">
-        <a class="list-group-item list-group-item-action" href="@Url.Action("Index", "Home")">🏠 Inicio</a>
-        <a class="list-group-item list-group-item-action" href="@Url.Action("VerTareas", "Home")">📋 Ver Tareas</a>
-        <a class="list-group-item list-group-item-action" href="@Url.Action("CrearTarea", "Home")">✏️ Crear Nueva Tarea</a>
-        <a class="list-group-item list-group-item-action" href="@Url.Action("ModificarTarea", "Home")">🛠️ Modificar Tarea</a>
+<div class="menu-container">
+    <a class="menu-item" href="@Url.Action("Index", "Home")">
+        <span class="icon">🏠</span>
+        <span class="text">Inicio</span>
+    </a>
+    <a class="menu-item" href="@Url.Action("VerTareas", "Home")">
+        <span class="icon">📋</span>
+        <span class="text">Ver Tareas</span>
+    </a>
+    <a class="menu-item" href="@Url.Action("CrearTarea", "Home")">
+        <span class="icon">✏️</span>
+        <span class="text">Crear Nueva Tarea</span>
+    </a>
+    <a class="menu-item" href="@Url.Action("ModificarTarea", "Home")">
+        <span class="icon">🛠️</span>
+        <span class="text">Modificar Tarea</span>
+    </a>
+    <a class="menu-item" href="@Url.Action("FinalizarTarea", "Home")">
+        <span class="icon">✅</span>
+        <span class="text">Finalizar Tarea</span>
+    </a>
+    <a class="menu-item" href="@Url.Action("EliminarTarea", "Home")">
+        <span class="icon">🗑️</span>
+        <span class="text">Eliminar Tarea</span>
+    </a>
+    <a class="menu-item cerrar-sesion" href="@Url.Action("CerrarSesion", "Account")">
+        <span class="icon">🚪</span>
+        <span class="text">Cerrar Sesión</span>
+    </a>
+</div>
 
-        <a class="list-group-item list-group-item-action" href="@Url.Action("FinalizarTarea", "Home")">✅ Finalizar Tarea</a>
-        <a class="list-group-item list-group-item-action" href="@Url.Action("EliminarTarea", "Home")">🗑️ Eliminar Tarea</a>
+    
 
-        <a class="list-group-item list-group-item-action text-danger" href="@Url.Action("CerrarSesion", "Account")">🚪 Cerrar Sesión</a>
-    </div>
 </div>

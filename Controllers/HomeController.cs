@@ -29,7 +29,12 @@ namespace TP07_ROTH.Controllers
             return View("VerTarea");
         }
 
-        public IActionResult CrearTareas()
+        public IActionResult VerTareas()
+        {
+            return CargarTareas();
+        }
+
+        public IActionResult CrearTarea()
         {
             return View();
         }
@@ -37,7 +42,9 @@ namespace TP07_ROTH.Controllers
         [HttpPost]
         public IActionResult CrearTareaGuardar(Tarea tarea)
         {
-            tarea.IDUsuario = HttpContext.Session.GetInt32("UsuarioID") ?? 0;
+            string username = HttpContext.Session.GetString("Username");
+            Usuario usuario = BD.ObtenerPorUsername(username);
+            tarea.IDUsuario = usuario.ID;
             tarea.Eliminada = false;
             tarea.Finalizada = false;
             tarea.Fecha = DateTime.Now;
@@ -46,36 +53,36 @@ namespace TP07_ROTH.Controllers
                 return RedirectToAction("Index");
 
             ViewBag.Error = true;
-            return View("CrearTareas");
+            return View("CrearTarea");
         }
 
-        public IActionResult FinalizarTarea(int id)
+        public IActionResult FinalizarTarea(int IDdelaTarea)
         {
-            BD.FinalizarTarea(id);
+            BD.FinalizarTarea(IDdelaTarea);
             return RedirectToAction("Index");
         }
 
-        public IActionResult EliminarTarea(int id)
+        public IActionResult EliminarTarea(int IDdelaTarea)
         {
-            BD.EliminarTarea(id);
+            BD.EliminarTarea(IDdelaTarea);
             return RedirectToAction("Index");
         }
 
-        public IActionResult EditarTarea(int id)
+        public IActionResult ModificarTarea(int id)
         {
             ViewBag.Tarea = BD.TraerTarea(id);
             return View();
         }
 
         [HttpPost]
-        public IActionResult EditarTareaGuardar(Tarea tarea)
+        public IActionResult ModificarTareaGuardar(Tarea tarea)
         {
             if (BD.ActualizarTarea(tarea))
                 return RedirectToAction("Index");
 
             ViewBag.Error = true;
             ViewBag.Tarea = tarea;
-            return View("EditarTarea");
+            return View("ModificarTarea");
         }
     }
 }

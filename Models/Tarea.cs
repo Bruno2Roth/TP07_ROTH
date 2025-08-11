@@ -25,8 +25,6 @@ namespace TP07_ROTH.Models
         [JsonProperty]
         public bool Eliminada { get; set; }
 
-
-
         public Tarea()
         {
         }

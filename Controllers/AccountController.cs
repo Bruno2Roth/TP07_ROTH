@@ -11,16 +11,20 @@ namespace TP07_ROTH.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginPost(string username, string password)
+        public IActionResult LoginPost(string Username, string Password)
         {
-            if (BD.VerificarContraseña(username, password))
+            if (Username == null || Username == "" || Password == null || Password == "")
             {
-                Usuario usuario = BD.ObtenerPorUsername(username);
+                ViewBag.Error = "Usuario y contraseña son obligatorios";
+                return View("Login");
+            }
 
+            if (BD.VerificarContraseña(Username, Password))
+            {
+                Usuario usuario = BD.ObtenerPorUsername(Username);
                 HttpContext.Session.SetInt32("IDdelUsuario", usuario.ID);
                 HttpContext.Session.SetString("Username", usuario.Username);
                 HttpContext.Session.SetString("Logeado", "true");
-
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -29,6 +33,7 @@ namespace TP07_ROTH.Controllers
                 return View("Login");
             }
         }
+
 
         public IActionResult Registro()
         {
