@@ -78,7 +78,7 @@ namespace TP07_ROTH.Controllers
         public IActionResult ModificarTareaGuardar(Tarea tarea)
         {
             if (BD.ActualizarTarea(tarea))
-                return RedirectToAction("Index");
+                return RedirectToAction("VerTareas");
 
             ViewBag.Error = true;
             ViewBag.Tarea = tarea;

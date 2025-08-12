@@ -294,6 +294,8 @@
       flex-direction: column;
       text-align: center;
     }
+
+
   
     .form-group label {
       font-size: 0.9rem;
@@ -332,6 +334,143 @@
     nav a:hover {
       color: var(--warning);
       text-decoration: underline;
+    }
+  }
+
+  /* Estilos para el badge de usuario conectado */
+  .logged-in-badge {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    animation: badgePulse 2s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    margin-left: 15px;
+    vertical-align: middle;
+  }
+
+  .badge-icon {
+    font-size: 1.1rem;
+    margin-right: 8px;
+    animation: iconBounce 1.5s ease-in-out infinite;
+  }
+
+  .badge-text {
+    font-weight: 600;
+  }
+
+  .badge-text strong {
+    color: #fbbf24;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes badgePulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
+    }
+  }
+
+  @keyframes iconBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Responsive para el badge */
+  @media (max-width: 768px) {
+    .logged-in-badge {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+    
+    .badge-icon {
+      font-size: 1rem;
+      margin-right: 6px;
+    }
+  }
+
+  /* Estilos para alertas personalizadas */
+  .custom-alert {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+    animation: alertSlideIn 0.5s ease-out;
+    border-left: 4px solid #fbbf24;
+  }
+
+  .alert-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+    animation: alertIconPulse 2s ease-in-out infinite;
+  }
+
+  .alert-content {
+    flex: 1;
+  }
+
+  .alert-message {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .alert-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    margin-left: 12px;
+  }
+
+  .alert-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+
+  @keyframes alertSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes alertIconPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
     }
   }
   

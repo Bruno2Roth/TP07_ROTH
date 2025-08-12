@@ -3,6 +3,16 @@
 }
 
 <div class="container mt-4">
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="custom-alert">
+            <div class="alert-icon">ℹ️</div>
+            <div class="alert-content">
+                <div class="alert-message">@TempData["Mensaje"]</div>
+            </div>
+            <button class="alert-close" onclick="this.parentElement.style.display='none'">×</button>
+        </div>
+    }
     <h2>Bienvenido @Context.Session.GetString("Username")</h2>
     <p>Selecciona una opción del menú:</p>
 
@@ -18,18 +28,6 @@
     <a class="menu-item" href="@Url.Action("CrearTarea", "Home")">
         <span class="icon">✏️</span>
         <span class="text">Crear Nueva Tarea</span>
-    </a>
-    <a class="menu-item" href="@Url.Action("ModificarTarea", "Home")">
-        <span class="icon">🛠️</span>
-        <span class="text">Modificar Tarea</span>
-    </a>
-    <a class="menu-item" href="@Url.Action("FinalizarTarea", "Home")">
-        <span class="icon">✅</span>
-        <span class="text">Finalizar Tarea</span>
-    </a>
-    <a class="menu-item" href="@Url.Action("EliminarTarea", "Home")">
-        <span class="icon">🗑️</span>
-        <span class="text">Eliminar Tarea</span>
     </a>
     <a class="menu-item cerrar-sesion" href="@Url.Action("CerrarSesion", "Account")">
         <span class="icon">🚪</span>

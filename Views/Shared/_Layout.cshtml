@@ -4,17 +4,27 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TP07_ROTH</title>
+    <title>@ViewData["Title"] - TaskMaster</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
 <body>
     <header>
-            <h1>Mi Aplicación</h1>
+            <h1>TaskMaster</h1>
             <nav>
-                <a href="/">Inicio</a>
-                <a href="/Account/Login">Login</a>
-                <a href="/Account/Registro">Registro</a>
+                @if (Context.Session.GetString("Logeado") == "true")
+                {
+                    <a href="/">Inicio</a>
+                    <div class="logged-in-badge">
+                        <span class="badge-icon">👤</span>
+                        <span class="badge-text">Conectado como <strong>@Context.Session.GetString("Username")</strong></span>
+                    </div>
+                }
+                else
+                {
+                    <a href="/Account/Login">Login</a>
+                    <a href="/Account/Registro">Registro</a>
+                }
             </nav>
     </header>
 
