@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TP07_ROTH.Models;
+using System;
 
 namespace TP07_ROTH.Controllers
 {
@@ -13,7 +14,7 @@ namespace TP07_ROTH.Controllers
         [HttpPost]
         public IActionResult LoginPost(string Username, string Password)
         {
-            if (Username == null || Username == "" || Password == null || Password == "")
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 ViewBag.Error = "Usuario y contraseña son obligatorios";
                 return View("Login");
@@ -22,7 +23,7 @@ namespace TP07_ROTH.Controllers
             if (BD.VerificarContraseña(Username, Password))
             {
                 Usuario usuario = BD.ObtenerPorUsername(Username);
-                HttpContext.Session.SetInt32("IDdelUsuario", usuario.ID);
+                HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
                 HttpContext.Session.SetString("Username", usuario.Username);
                 HttpContext.Session.SetString("Logeado", "true");
                 return RedirectToAction("Index", "Home");
@@ -43,7 +44,7 @@ namespace TP07_ROTH.Controllers
         [HttpPost]
         public IActionResult RegistroPost(Usuario usuario)
         {
-            if (usuario.Username == null || usuario.Username == "" || usuario.Password == null || usuario.Password == "")
+            if (string.IsNullOrEmpty(usuario.Username) || string.IsNullOrEmpty(usuario.Password))
             {
                 ViewBag.Error = "Usuario y contraseña son obligatorios";
                 return View("Registro");
