@@ -15,7 +15,6 @@ namespace TP07_ROTH.Models
         public int IDUsuario { get; set; }
         [JsonProperty]
         public string Titulo { get; set; }
-
         [JsonProperty]
         public string Descripcion { get; set; }
         [JsonProperty]

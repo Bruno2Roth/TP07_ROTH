@@ -16,7 +16,6 @@ namespace TP07_ROTH.Controllers
         {
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
-                ViewBag.Error = "Usuario y contraseña son obligatorios";
                 return View("Login");
             }
 
@@ -30,7 +29,6 @@ namespace TP07_ROTH.Controllers
             }
             else
             {
-                ViewBag.Error = "Usuario o contraseña incorrectos";
                 return View("Login");
             }
         }
@@ -46,7 +44,6 @@ namespace TP07_ROTH.Controllers
         {
             if (string.IsNullOrEmpty(usuario.Username) || string.IsNullOrEmpty(usuario.Password))
             {
-                ViewBag.Error = "Usuario y contraseña son obligatorios";
                 return View("Registro");
             }
 
@@ -58,7 +55,6 @@ namespace TP07_ROTH.Controllers
             }
             else
             {
-                ViewBag.Error = "El usuario ya existe";
                 return View("Registro");
             }
         }
