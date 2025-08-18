@@ -7,7 +7,7 @@ namespace TP07_ROTH.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Logeado") != "true")
+            if (HttpContext.Session.GetString("EstaLogin") != "true")
                 return RedirectToAction("Login", "Account");
             return View();
         }
@@ -15,7 +15,7 @@ namespace TP07_ROTH.Controllers
 
         public IActionResult CargarTareas()
         {
-            if (HttpContext.Session.GetString("Logeado") != "true")
+            if (HttpContext.Session.GetString("EstaLogin") != "true")
             {
                 return RedirectToAction("Login", "Account");
             }

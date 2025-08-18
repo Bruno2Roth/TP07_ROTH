@@ -24,7 +24,7 @@ namespace TP07_ROTH.Controllers
                 Usuario usuario = BD.ObtenerPorUsername(Username);
                 HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
                 HttpContext.Session.SetString("Username", usuario.Username);
-                HttpContext.Session.SetString("Logeado", "true");
+                HttpContext.Session.SetString("EstaLogin", "true");
                 return RedirectToAction("Index", "Home");
             }
             else
