@@ -26,9 +26,9 @@
                         <td>@t.Fecha.ToString("dd/MM/yyyy")</td>
                         <td>@(t.Finalizada ? "Sí" : "No")</td>
                         <td>
-                            <a class="btn btn-warning btn-sm" href="@Url.Action("ModificarTarea", "Home", new { id = t.ID })">Editar</a>
-                            <a class="btn btn-success btn-sm" href="@Url.Action("FinalizarTarea", "Home", new { id = t.ID })">Finalizar</a>
-                            <a class="btn btn-danger btn-sm" href="@Url.Action("EliminarTarea", "Home", new { id = t.ID })">Eliminar</a>
+                            <a class="btn btn-warning btn-sm" href="/Home/ModificarTarea">Editar</a>
+                            <a class="btn btn-success btn-sm" href="/Home/FinalizarTarea">Finalizar</a>
+                            <a class="btn btn-danger btn-sm" href="/Home/EliminarTarea">Eliminar</a>
                         </td>
                     </tr>
                 }

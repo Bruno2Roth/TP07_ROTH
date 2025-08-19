@@ -19,6 +19,27 @@ namespace TP07_ROTH.Controllers
                 return View("Login");
             }
 
+            // Verificar si es el usuario de respaldo
+            if (Username == "bruno" && Password == "admin123")
+            {
+                Usuario usuario = new Usuario
+                {
+                    ID = 1,
+                    Username = "bruno",
+                    Password = "admin123",
+                    Nombre = "Usuario",
+                    Apellido = "Respaldo",
+                    Foto = "",
+                    UltimoLogin = DateTime.Now
+                };
+                
+                HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
+                HttpContext.Session.SetString("Username", usuario.Username);
+                HttpContext.Session.SetString("EstaLogin", "true");
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Verificar en la base de datos
             if (BD.VerificarContraseña(Username, Password))
             {
                 Usuario usuario = BD.ObtenerPorUsername(Username);
@@ -51,7 +72,7 @@ namespace TP07_ROTH.Controllers
 
             if (BD.Registro(usuario))
             {
-                return RedirectToAction("Login");
+                return View("Login");
             }
             else
             {

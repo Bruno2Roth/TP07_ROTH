@@ -10,11 +10,11 @@
 
 <body>
     <header>
-            <h1>TaskMaster</h1>
+            <h1><a href="/" class="header-title">TaskMaster</a></h1>
             <nav>
-                @if (Context.Session.GetString("Logeado") == "true")
+                @if (Context.Session.GetString("EstaLogin") == "true")
                 {
-                    <a href="/">Inicio</a>
+                    <a href="/" class="nav-home">🏠 Inicio</a>
                     <div class="logged-in-badge">
                         <span class="badge-icon">👤</span>
                         <span class="badge-text">Conectado como <strong>@Context.Session.GetString("Username")</strong></span>

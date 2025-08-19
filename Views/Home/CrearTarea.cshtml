@@ -4,25 +4,27 @@
 }
 
 <div class="container mt-4">
-    <h2>Crear Nueva Tarea</h2>
-
-    <form method="post" asp-action="CrearTareaGuardar">
+    <form method="post" asp-action="CrearTareaGuardar" class="task-form">
+        <h2>📝 Crear Nueva Tarea</h2>
+        
         <div class="mb-3">
-            <label class="form-label">Título</label>
-            <input type="text" class="form-control" name="Titulo" required />
+            <label class="form-label">📌 Título</label>
+            <input type="text" class="form-control" name="Titulo" placeholder="Ingresa el título de la tarea" required />
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea class="form-control" name="Descripcion" required></textarea>
+            <label class="form-label">📄 Descripción</label>
+            <textarea class="form-control" name="Descripcion" placeholder="Describe los detalles de la tarea" required></textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Fecha</label>
+            <label class="form-label">📅 Fecha</label>
             <input type="date" class="form-control" name="Fecha" required />
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
-        <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">Cancelar</a>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">✅ Crear Tarea</button>
+            <a class="btn btn-secondary" href="@Url.Action("Index", "Home")">❌ Cancelar</a>
+        </div>
     </form>
 </div>

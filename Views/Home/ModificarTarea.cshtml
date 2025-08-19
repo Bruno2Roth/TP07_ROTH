@@ -4,27 +4,32 @@
 }
 
 <div class="container mt-4">
-    <h2>Modificar Tarea</h2>
-
-    <form method="post" asp-action="ModificarTarea">
+    <form class="task-form" method="post" asp-action="ModificarTareaGuardar">
+        <h2>✏️ Modificar Tarea</h2>
+        
         <input type="hidden" name="ID" value="@Model.ID" />
+        <input type="hidden" name="IDUsuario" value="@Model.IDUsuario" />
+        <input type="hidden" name="Eliminada" value="@Model.Eliminada" />
+        <input type="hidden" name="Finalizada" value="@Model.Finalizada" />
 
         <div class="mb-3">
-            <label class="form-label">Título</label>
-            <input type="text" class="form-control" name="Titulo" value="@Model.Titulo" required />
+            <label class="form-label">📌 Título</label>
+            <input type="text" class="form-control" name="Titulo" value="@Model.Titulo" required placeholder="Ingresa el título de la tarea" />
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea class="form-control" name="Descripcion" required>@Model.Descripcion</textarea>
+            <label class="form-label">📄 Descripción</label>
+            <textarea class="form-control" name="Descripcion" required placeholder="Describe los detalles de la tarea">@Model.Descripcion</textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Fecha</label>
+            <label class="form-label">📅 Fecha</label>
             <input type="date" class="form-control" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" required />
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        <a class="btn btn-secondary" href="@Url.Action("VerTareas", "Home")">Cancelar</a>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
+            <a class="btn btn-secondary" href="@Url.Action("VerTareas", "Home")">❌ Cancelar</a>
+        </div>
     </form>
 </div>

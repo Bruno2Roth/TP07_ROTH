@@ -174,6 +174,10 @@ namespace TP07_ROTH.Models
                 }
             }
         }
+        public static string Mensaje(string mensaje)
+        {
+            return mensaje;
+        }
 
     }
 }
