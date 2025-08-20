@@ -7,20 +7,20 @@
     <h2>Mis Tareas</h2>
     @if (tareas != null && tareas.Count > 0)
     {
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Fecha</th>
-                    <th>Finalizada</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+        <section class="table table-bordered">
+            <div>
+                <ul>
+                    <li>Título</li>
+                    <li>Descripción</li>
+                    <li>Fecha</li>
+                    <li>Finalizada</li>
+                    <li>Acciones</li>
+                </ul>
+            </div>
+            <div>
                 @foreach (var t in tareas)
                 {
-                    <tr>
+                    <div>
                         <td>@t.Titulo</td>
                         <td>@t.Descripcion</td>
                         <td>@t.Fecha.ToString("dd/MM/yyyy")</td>
@@ -30,10 +30,10 @@
                             <a class="btn btn-success btn-sm" href="/Home/FinalizarTarea">Finalizar</a>
                             <a class="btn btn-danger btn-sm" href="/Home/EliminarTarea">Eliminar</a>
                         </td>
-                    </tr>
+                    </div>
                 }
-            </tbody>
-        </table>
+            </div>
+        </section>
     }
     else
     {
