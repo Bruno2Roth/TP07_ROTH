@@ -18,16 +18,11 @@ namespace TP07_ROTH.Models
             }
         }
 
-        public static bool VerificarContraseña(string Username, string password) //verficar contraseña
+        public static bool VerificarContraseña(string Username, string Password)
         {
-            Usuario x = new Usuario();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Usuarios WHERE Username = @Username";
-                x = connection.QueryFirstOrDefault<Usuario>(query, new { Username = Username });
-            }
+            Usuario usuario = ObtenerPorUsername(Username);
 
-            if (x == null || x.Password != password)
+            if (usuario == null || usuario.Password != Password)
             {
                 return false;
             }
@@ -116,7 +111,7 @@ namespace TP07_ROTH.Models
                 }
             }
         }
-        public static bool ActualizarTarea(Tarea tarea) //ActualizarTarea
+        public static bool ActualizarTarea(Tarea tarea)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -131,7 +126,8 @@ namespace TP07_ROTH.Models
 
                     return true;
                 }
-                else{
+                else
+                {
                     return false;
                 }
 

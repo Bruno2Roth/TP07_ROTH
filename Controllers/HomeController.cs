@@ -24,7 +24,7 @@ namespace TP07_ROTH.Controllers
             int IDdelUsuario = usuario.ID;
             ViewBag.Tareas = BD.TraerTareas(IDdelUsuario);
             return View("VerTarea");
-        }   
+        }
         public IActionResult VerTareas()
         {
             return CargarTareas();
@@ -67,11 +67,6 @@ namespace TP07_ROTH.Controllers
         }
         public IActionResult ModificarTarea(int id)
         {
-            if (HttpContext.Session.GetString("EstaLogin") != "true")
-                return RedirectToAction("Login", "Account");
-            string username = HttpContext.Session.GetString("Username");
-            Usuario usuario = BD.ObtenerPorUsername(username);
-            Tarea tarea = BD.TraerTarea(id);
             return View("VerTareas");
         }
 

@@ -16,21 +16,19 @@ namespace TP07_ROTH.Controllers
         {
             if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
+                ViewBag.Mensaje("Complete el usuario y la contraseña");
                 return View("Login");
             }
 
-            if (BD.VerificarContraseña(Username, Password))
+            else if (BD.VerificarContraseña(Username, Password))
             {
                 Usuario usuario = BD.ObtenerPorUsername(Username);
-                HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
-                HttpContext.Session.SetString("Username", usuario.Username);
+                HttpContext.Session.SetString("Username", Username);
                 HttpContext.Session.SetString("EstaLogin", "true");
-                return RedirectToAction("Index", "Home");
             }
 
-            return View("Login");
+            return RedirectToAction("Index", "Home");
         }
-
 
 
         public IActionResult Registro()

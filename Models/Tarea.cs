@@ -1,9 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TP07_ROTH.Models;
 using Newtonsoft.Json;
-using Microsoft.Data.SqlClient;
 
 namespace TP07_ROTH.Models
 {
