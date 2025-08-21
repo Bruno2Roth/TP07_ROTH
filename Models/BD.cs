@@ -107,7 +107,7 @@ namespace TP07_ROTH.Models
                 if (existe == 1)
                 {
                     string query = @"UPDATE Tareas SET Tareas.Eliminada = 1 WHERE Tareas.ID = @IDdelaTarea";
-                    connection.Execute(query, new { IDdelaTarea });
+                    connection.Execute(query, new { IDdelaTarea = IDdelaTarea });
                     return true; //"se elimino""
                 }
                 else
@@ -120,7 +120,6 @@ namespace TP07_ROTH.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                // Verificar que la tarea existe
                 string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { ID = tarea.ID });
 
@@ -130,12 +129,12 @@ namespace TP07_ROTH.Models
 
                     connection.Execute(query, new { tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada, tarea.ID });
 
-                    return true; // Se actualizó 
+                    return true;
                 }
-                else
-                {
-                    return false; // No existe la tarea
+                else{
+                    return false;
                 }
+
             }
         }
 

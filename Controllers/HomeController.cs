@@ -12,7 +12,7 @@ namespace TP07_ROTH.Controllers
             return View();
         }
 
-
+        [HttpPost]
         public IActionResult CargarTareas()
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
@@ -20,36 +20,15 @@ namespace TP07_ROTH.Controllers
                 return RedirectToAction("Login", "Account");
             }
             string username = HttpContext.Session.GetString("Username");
-
             Usuario usuario = BD.ObtenerPorUsername(username);
-            
-            // Usuario manual de respaldo si falla la base de datos
-            if (usuario == null)
-            {
-                usuario = new Usuario
-                {
-                    ID = 1,
-                    Username = "bruno",
-                    Password = "admin123",
-                    Nombre = "Usuario",
-                    Apellido = "Respaldo",
-                    Foto = "",
-                    UltimoLogin = DateTime.Now
-                };
-            }
-            
             int IDdelUsuario = usuario.ID;
-
             ViewBag.Tareas = BD.TraerTareas(IDdelUsuario);
-
             return View("VerTarea");
-        }
-
+        }   
         public IActionResult VerTareas()
         {
             return CargarTareas();
         }
-
         public IActionResult CrearTarea()
         {
             return View();
@@ -60,113 +39,40 @@ namespace TP07_ROTH.Controllers
         {
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            
-            // Usuario manual de respaldo si falla la base de datos
-            if (usuario == null)
-            {
-                usuario = new Usuario
-                {
-                    ID = 1,
-                    Username = "bruno",
-                    Password = "admin123",
-                    Nombre = "Usuario",
-                    Apellido = "Respaldo",
-                    Foto = "",
-                    UltimoLogin = DateTime.Now
-                };
-            }
-            
             tarea.IDUsuario = usuario.ID;
             tarea.Eliminada = false;
             tarea.Finalizada = false;
             tarea.Fecha = DateTime.Now;
-
             if (BD.CrearTarea(tarea))
                 return RedirectToAction("Index");
-
-            ViewBag.Error = true;
             return View("CrearTarea");
         }
-
         public IActionResult FinalizarTarea(int IDdelaTarea)
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
                 return RedirectToAction("Login", "Account");
-                
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            
-            // Usuario manual de respaldo si falla la base de datos
-            if (usuario == null)
-            {
-                usuario = new Usuario
-                {
-                    ID = 1,
-                    Username = "bruno",
-                    Password = "admin123",
-                    Nombre = "Usuario",
-                    Apellido = "Respaldo",
-                    Foto = "",
-                    UltimoLogin = DateTime.Now
-                };
-            }
-            
             BD.FinalizarTarea(IDdelaTarea);
             return RedirectToAction("VerTareas");
         }
-
         public IActionResult EliminarTarea(int IDdelaTarea)
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
                 return RedirectToAction("Login", "Account");
-            
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            
-            // Usuario manual de respaldo si falla la base de datos
-            if (usuario == null)
-            {
-                usuario = new Usuario
-                {
-                    ID = 1,
-                    Username = "bruno",
-                    Password = "admin123",
-                    Nombre = "Usuario",
-                    Apellido = "Respaldo",
-                    Foto = "",
-                    UltimoLogin = DateTime.Now
-                };
-            }
-            
             BD.EliminarTarea(IDdelaTarea);
             return RedirectToAction("VerTareas");
         }
-
         public IActionResult ModificarTarea(int id)
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
                 return RedirectToAction("Login", "Account");
-                
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            
-            // Usuario manual de respaldo si falla la base de datos
-            if (usuario == null)
-            {
-                usuario = new Usuario
-                {
-                    ID = 1,
-                    Username = "bruno",
-                    Password = "admin123",
-                    Nombre = "Usuario",
-                    Apellido = "Respaldo",
-                    Foto = "",
-                    UltimoLogin = DateTime.Now
-                };
-            }
-            
             Tarea tarea = BD.TraerTarea(id);
-            return View(tarea);
+            return View("VerTareas");
         }
 
         [HttpPost]
@@ -174,30 +80,15 @@ namespace TP07_ROTH.Controllers
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
                 return RedirectToAction("Login", "Account");
-                
+
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            
-            // Usuario manual de respaldo si falla la base de datos
-            if (usuario == null)
-            {
-                usuario = new Usuario
-                {
-                    ID = 1,
-                    Username = "bruno",
-                    Password = "admin123",
-                    Nombre = "Usuario",
-                    Apellido = "Respaldo",
-                    Foto = "",
-                    UltimoLogin = DateTime.Now
-                };
-            }
-            
             if (BD.ActualizarTarea(tarea))
                 return RedirectToAction("VerTareas");
-
-            ViewBag.Error = true;
+            ViewBag.Error = "No se pudo actualizar la tarea.";
             return View("ModificarTarea", tarea);
         }
+
+
     }
 }

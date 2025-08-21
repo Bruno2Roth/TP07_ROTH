@@ -4,27 +4,29 @@
 }
 
 <div class="container mt-4">
-    <form class="task-form" method="post" asp-action="ModificarTareaGuardar">
+    <form asp-controller="Home" asp-action="ModificarTareaGuardar" method="post">
+
         <h2>✏️ Modificar Tarea</h2>
-        
-        <input type="hidden" name="ID" value="@Model.ID" />
-        <input type="hidden" name="IDUsuario" value="@Model.IDUsuario" />
-        <input type="hidden" name="Eliminada" value="@Model.Eliminada" />
-        <input type="hidden" name="Finalizada" value="@Model.Finalizada" />
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+        <input type="hidden" asp-for="ID" />
 
         <div class="mb-3">
             <label class="form-label">📌 Título</label>
-            <input type="text" class="form-control" name="Titulo" value="@Model.Titulo" required placeholder="Ingresa el título de la tarea" />
+            <input asp-for="Titulo" class="form-control" required placeholder="Ingresa el título de la tarea" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">📄 Descripción</label>
-            <textarea class="form-control" name="Descripcion" required placeholder="Describe los detalles de la tarea">@Model.Descripcion</textarea>
+            <textarea asp-for="Descripcion" class="form-control" required placeholder="Describe los detalles de la tarea"></textarea>
         </div>
 
         <div class="mb-3">
             <label class="form-label">📅 Fecha</label>
-            <input type="date" class="form-control" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" required />
+            <input asp-for="Fecha" type="date" class="form-control" required />
         </div>
 
         <div class="btn-container">
