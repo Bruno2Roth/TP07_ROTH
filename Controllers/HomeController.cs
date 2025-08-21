@@ -65,11 +65,21 @@ namespace TP07_ROTH.Controllers
             BD.EliminarTarea(IDdelaTarea);
             return RedirectToAction("VerTareas");
         }
-        public IActionResult ModificarTarea(int id)
-        {
-            return View("VerTareas");
-        }
+            public IActionResult ModificarTarea(int id)
+            {
+                if (HttpContext.Session.GetString("EstaLogin") != "true")
+                    return RedirectToAction("Login", "Account");
 
+                Tarea tarea = BD.TraerTarea(id);
+
+                if (tarea == null)
+                {
+                    ViewBag.Error = "La tarea no existe.";
+                    return RedirectToAction("VerTareas");
+                }
+
+                return View("ModificarTarea", tarea); // ✅ Esta línea es la clave
+            }
         [HttpPost]
         public IActionResult ModificarTareaGuardar(Tarea tarea)
         {
@@ -78,12 +88,16 @@ namespace TP07_ROTH.Controllers
 
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
+
+            // Asegurarse de que la tarea esté vinculada al usuario actual
+            tarea.IDUsuario = usuario.ID;
+
             if (BD.ActualizarTarea(tarea))
                 return RedirectToAction("VerTareas");
+
+            // Si falla la actualización, mostrar la vista con el error
             ViewBag.Error = "No se pudo actualizar la tarea.";
             return View("ModificarTarea", tarea);
         }
-
-
     }
 }
