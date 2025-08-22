@@ -194,14 +194,6 @@
     background-color: #15803d;
   }
   
-  .btn-danger {
-    background-color: var(--danger);
-  }
-  
-  .btn-danger:hover {
-    background-color: #b91c1c;
-  }
-  
   a {
     color: var(--primary);
     transition: color var(--speed), transform var(--speed);
@@ -229,9 +221,9 @@
   .menu-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 19px;
     justify-content: center;
-    padding: 20px 0;
+    padding: 17px 0;
     font-family: var(--font);
   }
   
@@ -240,8 +232,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
     border: 2px solid #007bff;
     border-radius: 12px;
     background-color: #fff;
@@ -301,15 +293,9 @@
   .menu-item:focus,
   .menu-item:active,
   .menu-item:focus-visible {
-    text-decoration: none;
-    outline: none;
+    outline: none;    text-decoration: none;
   }
-  
-  .menu-item:focus-visible,
-  .menu-item:focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
+
 
   .logged-in-badge {
     display: inline-flex;
@@ -362,67 +348,7 @@
     }
   }
 
-  .custom-alert {
-    display: flex;
-    align-items: center;
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    color: white;
-    padding: 16px 20px;
-    border-radius: var(--radius);
-    margin-bottom: 20px;
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-    animation: alertSlideIn 0.5s ease-out;
-    border-left: 4px solid #fbbf24;
-  }
 
-  .alert-icon {
-    font-size: 1.5rem;
-    margin-right: 12px;
-    animation: alertIconPulse 2s ease-in-out infinite;
-  }
-
-  .alert-content {
-    flex: 1;
-  }
-
-  .alert-message {
-    font-weight: 500;
-    font-size: 1rem;
-  }
-
-  .alert-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    margin-left: 12px;
-  }
-
-  .alert-close:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-  }
-
-  @keyframes alertSlideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
   @keyframes alertIconPulse {
     0%, 100% {
@@ -433,40 +359,6 @@
     }
   }
 
-  /* Estilos para el título del menú */
-  .menu-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 120px;
-    height: 120px;
-    border: 2px solid #6b7280;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-    color: #374151;
-    font-weight: 700;
-    font-size: 1.1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    user-select: none;
-    cursor: default;
-  }
-
-  .menu-title .icon {
-    font-size: 2.5rem;
-    margin-bottom: 8px;
-    line-height: 1;
-    opacity: 0.8;
-  }
-
-  .menu-title .text {
-    text-align: center;
-    white-space: normal;
-    line-height: 1.2;
-    font-weight: 700;
-  }
-
-  /* Estilos mejorados para formularios de tareas */
   .task-form {
     background: white;
     border: 2px solid #e5e7eb;
@@ -566,7 +458,6 @@
     text-decoration: none;
   }
 
-  /* Asegurar que los botones se muestren correctamente */
   .task-form button[type="submit"],
   .task-form a.btn {
     display: inline-block;
@@ -603,7 +494,6 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
 
-  /* Estilos específicos para el formulario de modificar */
   .task-form h2 {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     -webkit-background-clip: text;
@@ -611,7 +501,6 @@
     background-clip: text;
   }
 
-  /* Contenedor para los botones con mejor espaciado */
   .task-form .btn-container {
     display: flex;
     justify-content: center;
@@ -631,272 +520,38 @@
       transform: translateY(0);
     }
   }
-
-  /* ===== ESTILOS PARA VER TAREA ===== */
-  .tasks-table {
-    background: linear-gradient(135deg, #ffffff, #f8fafc);
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-    animation: tableSlideIn 1s ease-out;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
-    position: relative;
-    margin: 20px 0;
-  }
-
-  .tasks-table::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
-    background-size: 400% 400%;
-    animation: gradientShift 3s ease infinite;
-  }
-
-  @keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .tasks-table .table {
-    margin-bottom: 0;
-    border-collapse: separate;
-    border-spacing: 0;
-    width: 100%;
-  }
-
-  .tasks-table thead th {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    font-weight: 800;
-    padding: 22px 18px;
-    border: none;
-    text-align: center;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-    overflow: hidden;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .tasks-table thead th::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.6s ease;
-  }
-
-  .tasks-table thead th:hover::before {
-    left: 100%;
-  }
-
-  .tasks-table tbody td {
-    padding: 20px 18px;
-    border-bottom: 2px solid rgba(226, 232, 240, 0.4);
-    vertical-align: middle;
-    transition: all 0.4s ease;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #374151;
-  }
-
-  .tasks-table tbody tr {
-    transition: all 0.4s ease;
-    position: relative;
-    background: rgba(255, 255, 255, 0.7);
-  }
-
-  .tasks-table tbody tr:hover {
-    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-    transform: translateY(-3px) scale(1.01);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-    z-index: 2;
-  }
-
-  .tasks-table tbody tr:nth-child(even) {
-    background: rgba(248, 250, 252, 0.8);
-  }
-
-  .tasks-table tbody tr:nth-child(even):hover {
-    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-  }
-
-  .tasks-table .btn-sm {
-    padding: 10px 20px;
-    font-size: 0.95rem;
-    border-radius: 15px;
-    margin: 4px;
-    transition: all 0.5s ease;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    border: 2px solid transparent;
-  }
-
-  .tasks-table .btn-sm::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.6s ease;
-  }
-
-  .tasks-table .btn-sm:hover::before {
-    left: 100%;
-  }
-
-  .tasks-table .btn-sm:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-  }
-
-  .tasks-table .btn-warning {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    border: 2px solid #f59e0b;
-    color: white;
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
-  }
-
-  .tasks-table .btn-warning:hover {
-    background: linear-gradient(135deg, #d97706, #b45309);
-    border-color: #d97706;
-    color: white;
-    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.7);
-  }
-
-  .tasks-table .btn-success {
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    border: 2px solid #16a34a;
-    color: white;
-    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5);
-  }
-
-  .tasks-table .btn-success:hover {
-    background: linear-gradient(135deg, #15803d, #166534);
-    border-color: #15803d;
-    color: white;
-    box-shadow: 0 8px 25px rgba(22, 163, 74, 0.7);
-  }
-
-  .tasks-table .btn-danger {
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    border: 2px solid #dc2626;
-    color: white;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
-  }
-
-  .tasks-table .btn-danger:hover {
-    background: linear-gradient(135deg, #b91c1c, #991b1b);
-    border-color: #b91c1c;
-    color: white;
-    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.7);
-  }
-
-  .tasks-header {
-    text-align: center;
-    color: var(--primary);
-    margin-bottom: 50px;
-    font-size: 3.5rem;
-    font-weight: 900;
-    text-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-    animation: titleGlow 4s ease-in-out infinite;
-  }
-
-  @keyframes titleGlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .tasks-header::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 6px;
-    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-    border-radius: 3px;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  }
-
-  .no-tasks-message {
-    text-align: center;
-    padding: 80px 50px;
-    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-    border-radius: 25px;
-    color: var(--secondary);
-    font-size: 1.5rem;
-    font-weight: 700;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    border: 3px solid rgba(255, 255, 255, 0.4);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .no-tasks-message::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    animation: shimmer 4s infinite;
-  }
-
   @keyframes shimmer {
     0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
     100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
   }
 
-  .badge {
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
+    .badge {
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
 
-  .badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-  }
+    .badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
 
-  .badge:hover::before {
-    left: 100%;
-  }
+    .badge:hover::before {
+      left: 100%;
+    }
 
   .bg-success {
     background: linear-gradient(135deg, #16a34a, #15803d);
@@ -1023,6 +678,4 @@
   color: #7f8c8d;
   margin-top: 20px;
   text-align: center;
-}
-
-  
+}  

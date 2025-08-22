@@ -7,8 +7,6 @@ namespace TP07_ROTH.Controllers
     {
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("EstaLogin") != "true")
-                return RedirectToAction("Login", "Account");
             return View();
         }
 
@@ -16,7 +14,10 @@ namespace TP07_ROTH.Controllers
         public IActionResult CargarTareas()
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
+            {
+                ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
+            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             int IDdelUsuario = usuario.ID;
@@ -36,7 +37,10 @@ namespace TP07_ROTH.Controllers
         public IActionResult CrearTareaGuardar(Tarea tarea)
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
+            {
+                ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
+            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             tarea.IDUsuario = usuario.ID;
@@ -50,7 +54,10 @@ namespace TP07_ROTH.Controllers
         public IActionResult FinalizarTarea(int IDdelaTarea)
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
+            {
+                ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
+            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             BD.FinalizarTarea(IDdelaTarea);
@@ -58,8 +65,11 @@ namespace TP07_ROTH.Controllers
         }
         public IActionResult EliminarTarea(int IDdelaTarea)
         {
-            if (HttpContext.Session.GetString("EstaLogin") != "true")
+           if (HttpContext.Session.GetString("EstaLogin") != "true")
+            {
+                ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
+            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             BD.EliminarTarea(IDdelaTarea);
@@ -74,12 +84,18 @@ namespace TP07_ROTH.Controllers
         public IActionResult ModificarTareaGuardar(Tarea tarea)
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
+            {
+                ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
+            }
+            else if (tarea.Finalizada == true)
+            {
+                ViewBag.Error("Esta tarea ya esta finalizada");
+                return RedirectToAction("VerTareas");
+            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            if (BD.ActualizarTarea(tarea))
-                return RedirectToAction("VerTareas");
-            return View("ModificarTarea", tarea);
+            return RedirectToAction("VerTareas");
         }
     }
 }
