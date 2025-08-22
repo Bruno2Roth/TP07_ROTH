@@ -19,7 +19,7 @@ namespace TP07_ROTH.Models
 
         public static bool VerificarContraseña(string Username, string password)
         {
-            
+
             Usuario x = new Usuario();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -28,7 +28,7 @@ namespace TP07_ROTH.Models
             }
             if (x == null || x.Password != password)
             {
-                
+
                 return false;
             }
             else return true;
@@ -103,8 +103,7 @@ namespace TP07_ROTH.Models
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @IDdelaTarea";
-                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { IDdelaTarea = IDdelaTarea });
-                if (existe == 1)
+                if (connection.QueryFirstOrDefault<int>(QueryExiste, new { IDdelaTarea = IDdelaTarea }) == 1)
                 {
                     string query = @"UPDATE Tareas SET Tareas.Eliminada = 1 WHERE Tareas.ID = @IDdelaTarea";
                     connection.Execute(query, new { IDdelaTarea = IDdelaTarea });
@@ -120,19 +119,21 @@ namespace TP07_ROTH.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0";
-                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { ID = tarea.ID });
+                string sql = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0 AND Finalizada = 0";
+                int existe = connection.QueryFirstOrDefault<int>(sql, new { ID = tarea.ID });
 
+                Console.WriteLine(existe);
                 if (existe == 1)
                 {
                     string query = @"UPDATE Tareas SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Finalizada = @Finalizada, Eliminada = @Eliminada WHERE ID = @ID";
 
                     connection.Execute(query, new { tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada, tarea.ID });
-
+                    Console.WriteLine("Tarea actualizada correctamente.");
                     return true;
                 }
                 else
                 {
+                    Console.WriteLine("No se pudo actualizar la tarea. Verifique que la tarea exista y no esté eliminada o finalizada.");
                     return false;
                 }
 

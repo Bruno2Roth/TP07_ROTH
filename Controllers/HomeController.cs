@@ -88,13 +88,10 @@ namespace TP07_ROTH.Controllers
                 ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
             }
-            else if (tarea.Finalizada == true)
-            {
-                ViewBag.Error("Esta tarea ya esta finalizada");
-                return RedirectToAction("VerTareas");
-            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
+            if(BD.ActualizarTarea(tarea)){
+            }
             return RedirectToAction("VerTareas");
         }
     }
