@@ -4,39 +4,38 @@
 }
 
 <div class="container mt-4">
-    <h2>Mis Tareas</h2>
+    <h2 class="title">Mis Tareas</h2>
+
     @if (tareas != null && tareas.Count > 0)
     {
-        <section class="table table-bordered">
-            <div>
-                <ul>
-                    <li>Título</li>
-                    <li>Descripción</li>
-                    <li>Fecha</li>
-                    <li>Finalizada</li>
-                    <li>Acciones</li>
-                </ul>
-            </div>
-            <div>
-                @foreach (var t in tareas)
-                {
-                    <div>
-                        <td>@t.Titulo</td>
-                        <td>@t.Descripcion</td>
-                        <td>@t.Fecha.ToString("dd/MM/yyyy")</td>
-                        <td>@(t.Finalizada ? "Sí" : "No")</td>
-                        <td>
-                            <a class="btn btn-secondary" href="@Url.Action("ModificarTarea", "Home")">Editar</a>
-                            <a class="btn btn-secondary" href="@Url.Action("FinalizarTarea", "Home")">Finalizar</a>
-                            <a class="btn btn-secondary" href="@Url.Action("EliminarTarea", "Home")">EliminarTarea</a>
-                        </td>
+        <section class="task-list">
+            <header class="task-list-header">
+                <div class="task-title">Título</div>
+                <div class="task-description">Descripción</div>
+                <div class="task-date">Fecha</div>
+                <div class="task-finalizada">Finalizada</div>
+                <div class="task-acciones">Acciones</div>
+            </header>
+
+            @foreach (var t in tareas)
+            {
+                <section class="task-item">
+                    <div class="task-title">@t.Titulo</div>
+                    <div class="task-description">@t.Descripcion</div>
+                    <div class="task-date">@t.Fecha.ToString("dd/MM/yyyy")</div>
+                    <div class="task-finalizada">@((t.Finalizada) ? "Sí" : "No")</div>
+                    <div class="task-acciones">
+                        <a class="btn btn-secondary" href="@Url.Action("ModificarTarea", "Home", new { IDdelaTarea = t.ID })">Editar</a>
+                        <a class="btn btn-secondary" href="@Url.Action("FinalizarTarea", "Home", new { IDdelaTarea = t.ID })">Finalizar</a>
+                        <a class="btn btn-danger" href="@Url.Action("EliminarTarea", "Home", new { IDdelaTarea = t.ID })">Eliminar</a>
                     </div>
-                }
-            </div>
+                </section>
+            }
         </section>
     }
     else
     {
-        <p>No tienes tareas registradas.</p>
+        <p class="empty-message">No tienes tareas registradas.</p>
     }
 </div>
+

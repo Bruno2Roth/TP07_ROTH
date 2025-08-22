@@ -5,8 +5,8 @@ namespace TP07_ROTH.Models
 {
     public static class BD
     {
-        // private static string _connectionString = "Server=localhost;Database=TP07_ROTH;Integrated Security=True;TrustServerCertificate=True;";
-        private static string _connectionString = "Server=BRUNO_34\\SQLEXPRESS;Database=TP07_ROTH;Integrated Security=True;Encrypt=False;";
+        private static string _connectionString = "Server=localhost;Database=TP07_ROTH;Integrated Security=True;TrustServerCertificate=True;";
+        //private static string _connectionString = "Server=BRUNO_34\\SQLEXPRESS;Database=TP07_ROTH;Integrated Security=True;Encrypt=False;";
 
         public static Usuario ObtenerPorUsername(string username)
         {
@@ -17,12 +17,18 @@ namespace TP07_ROTH.Models
             }
         }
 
-        public static bool VerificarContraseña(string Username, string Password)
+        public static bool VerificarContraseña(string Username, string password)
         {
-            Usuario usuario = ObtenerPorUsername(Username);
-
-            if (usuario == null || usuario.Password != Password)
+            
+            Usuario x = new Usuario();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                string query = "SELECT * FROM Usuarios WHERE Username = @Username";
+                x = connection.QueryFirstOrDefault<Usuario>(query, new { Username = Username });
+            }
+            if (x == null || x.Password != password)
+            {
+                
                 return false;
             }
             else return true;
@@ -47,7 +53,7 @@ namespace TP07_ROTH.Models
             }
         }
 
-        public static bool Registro(Usuario usuario) //Registro
+        public static bool Registro(Usuario usuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -62,32 +68,32 @@ namespace TP07_ROTH.Models
                                VALUES (@Username, @Password, @Nombre, @Apellido, @Foto, @UltimoLogin)";
 
                     connection.Execute(query, new { usuario.Username, usuario.Password, usuario.Nombre, usuario.Apellido, usuario.Foto, usuario.UltimoLogin });
-                    return true; //mensaje de que el usuario se registro
+                    return true;
                 }
                 else
                 {
-                    return false; //mensaje de que el usuario ya esta en uso
+                    return false;
                 }
             }
         }
-        public static bool CrearTarea(Tarea tarea) //CrearTarea
+        public static bool CrearTarea(Tarea tarea)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string QueryExiste = "SELECT 1 FROM Tareas WHERE Titulo = @Titulo";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { tarea.Titulo });
 
-                if (existe != 1)// no existe una tarea con ese nombre
+                if (existe != 1)
                 {
                     string query = @"INSERT INTO Tareas(IDUsuario, Titulo, Descripcion, Fecha, Finalizada, Eliminada) 
                                VALUES (@IDUsuario, @Titulo, @Descripcion, @Fecha, @Finalizada, @Eliminada)";
                     connection.Execute(query, new { tarea.IDUsuario, tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada });
 
-                    return true; // tarea creada 
+                    return true;
                 }
                 else
                 {
-                    return false; // ya existe una tarea con ese título
+                    return false;
                 }
             }
         }
@@ -97,7 +103,7 @@ namespace TP07_ROTH.Models
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string QueryExiste = "SELECT 1 FROM Tareas WHERE ID = @IDdelaTarea";
-                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { IDdelaTarea });
+                int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { IDdelaTarea = IDdelaTarea });
                 if (existe == 1)
                 {
                     string query = @"UPDATE Tareas SET Tareas.Eliminada = 1 WHERE Tareas.ID = @IDdelaTarea";

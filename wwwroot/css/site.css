@@ -19,17 +19,14 @@
     padding: 0;
     list-style: none;
   }
+  a{
+    text-decoration: none;
+  }
   
   html {
     font-size: 14px;
     min-height: 100%;
     scroll-behavior: smooth;
-  }
-  
-  @media (min-width: 768px) {
-    html {
-      font-size: 16px;
-    }
   }
   
   body {
@@ -41,7 +38,6 @@
     animation: gradientBG 10s ease infinite;
   }
 
-  /* Barra de bienvenida superior */
   .welcome-banner {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
@@ -69,38 +65,6 @@
   .welcome-text strong {
     color: #fbbf24;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  @keyframes welcomeSlideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes welcomeIconBounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-3px);
-    }
-  }
-  
-  @keyframes gradientBG {
-    0% {
-      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-    }
-    50% {
-      background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
-    }
-    100% {
-      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-    }
   }
   
   header {
@@ -161,17 +125,7 @@
     margin: auto;
     animation: fadeIn var(--speed) ease-in-out;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+
   
   form .form-group {
     margin-bottom: 15px;
@@ -215,7 +169,6 @@
     border-radius: var(--radius);
     color: white;
     font-weight: bold;
-    transition: background var(--speed), transform var(--speed), box-shadow var(--speed);
     cursor: pointer;
   }
   
@@ -357,64 +310,7 @@
     outline: none !important;
     box-shadow: none !important;
   }
-  
-  @media (max-width: 576px) {
-    body {
-      padding: 10px;
-    }
-  
-    form {
-      padding: 20px;
-    }
-  
-    header {
-      flex-direction: column;
-      text-align: center;
-    }
 
-
-  
-    .form-group label {
-      font-size: 0.9rem;
-    }
-  
-    .form-control {
-      font-size: 1rem;
-    }
-  
-    button {
-      width: 100%;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    header {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  
-    form {
-      margin: 20px auto;
-    }
-  
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: bold;
-    }
-  
-    nav a {
-      font-size: 1rem;
-      color: var(--light);
-      margin-left: 15px;
-    }
-  
-    nav a:hover {
-      color: var(--warning);
-      text-decoration: underline;
-    }
-  }
-
-  /* Estilos para el badge de usuario conectado */
   .logged-in-badge {
     display: inline-flex;
     align-items: center;
@@ -466,37 +362,6 @@
     }
   }
 
-  /* Responsive para el badge */
-  @media (max-width: 768px) {
-    .logged-in-badge {
-      font-size: 0.8rem;
-      padding: 6px 12px;
-    }
-    
-    .badge-icon {
-      font-size: 1rem;
-      margin-right: 6px;
-    }
-  }
-
-  /* Responsive para la barra de bienvenida */
-  @media (max-width: 768px) {
-    .welcome-banner {
-      padding: 10px 15px;
-      margin-bottom: 10px;
-    }
-    
-    .welcome-content {
-      font-size: 1rem;
-      gap: 8px;
-    }
-    
-    .welcome-icon {
-      font-size: 1.1rem;
-    }
-  }
-
-  /* Estilos para alertas personalizadas */
   .custom-alert {
     display: flex;
     align-items: center;
@@ -899,7 +764,6 @@
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
   }
 
-  /* Estilos específicos para botones de acción en la tabla */
   .tasks-table .btn-warning {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     border: 2px solid #f59e0b;
@@ -1006,7 +870,6 @@
     100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
   }
 
-  /* Estilos para badges de estado */
   .badge {
     padding: 8px 16px;
     border-radius: 25px;
@@ -1047,7 +910,6 @@
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
   }
 
-  /* Animación de entrada de la tabla */
   @keyframes tableSlideIn {
     from {
       opacity: 0;
@@ -1059,42 +921,6 @@
     }
   }
 
-  /* Responsive para la tabla */
-  @media (max-width: 768px) {
-    .tasks-table {
-      border-radius: 15px;
-      margin: 10px;
-    }
-    
-    .tasks-header {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-    }
-    
-    .tasks-table thead th {
-      padding: 15px 10px;
-      font-size: 1rem;
-      letter-spacing: 1px;
-    }
-    
-    .tasks-table tbody td {
-      padding: 15px 10px;
-      font-size: 1rem;
-    }
-    
-    .tasks-table .btn-sm {
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      margin: 2px;
-    }
-    
-    .no-tasks-message {
-      padding: 50px 30px;
-      font-size: 1.2rem;
-    }
-  }
-
-  /* Estilos adicionales para mejorar la tabla */
   .tasks-table .table {
     border-radius: 20px;
   }
@@ -1108,7 +934,6 @@
     text-align: center;
   }
 
-  /* Mejoras para el estado de las tareas */
   .tasks-table tbody td:nth-child(4) {
     text-align: center;
   }
@@ -1119,5 +944,85 @@
     text-align: center;
   }
 
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-weight: 700;
+  border-bottom: 3px solid #2980b9;
+  padding-bottom: 10px;
+}
+
+
+.task-list-header {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 1fr 3fr;
+  font-weight: 700;
+  padding: 10px 15px;
+  background-color: #2980b9;
+  color: white;
+  border-radius: 6px;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 1fr 3fr;
+  padding: 12px 15px;
+  border-radius: 6px;
+  background-color: #ecf0f1;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.task-item:hover {
+  background-color: #d6eaf8;
+}
+
+.task-title,
+.task-description,
+.task-date,
+.task-finalizada,
+.task-acciones {
+  overflow-wrap: break-word;
+}
+
+.btn {
+  padding: 6px 12px;
+  margin-right: 6px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #2980b9;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.empty-message {
+  font-style: italic;
+  color: #7f8c8d;
+  margin-top: 20px;
+  text-align: center;
+}
 
   

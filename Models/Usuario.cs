@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TP07_ROTH.Models;
 using Newtonsoft.Json;
 
 namespace TP07_ROTH.Models

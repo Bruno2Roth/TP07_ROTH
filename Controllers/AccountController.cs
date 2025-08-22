@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using TP07_ROTH.Models;
-using System;
 
 namespace TP07_ROTH.Controllers
 {
@@ -14,6 +13,7 @@ namespace TP07_ROTH.Controllers
         [HttpPost]
         public IActionResult LoginPost(string Username, string Password)
         {
+
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 return View("Login");
@@ -24,7 +24,7 @@ namespace TP07_ROTH.Controllers
                 Usuario usuario = BD.ObtenerPorUsername(Username);
                 HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
                 HttpContext.Session.SetString("Username", usuario.Username);
-                HttpContext.Session.SetString("Logeado", "true");
+                HttpContext.Session.SetString("EstaLogin", "true");
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -32,6 +32,8 @@ namespace TP07_ROTH.Controllers
                 return View("Login");
             }
         }
+
+
 
 
         public IActionResult Registro()
@@ -58,7 +60,7 @@ namespace TP07_ROTH.Controllers
                 return View("Registro");
             }
         }
-        
+
 
 
         public IActionResult CerrarSesion()

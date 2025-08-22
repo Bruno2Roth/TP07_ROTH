@@ -16,9 +16,7 @@ namespace TP07_ROTH.Controllers
         public IActionResult CargarTareas()
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
-            {
                 return RedirectToAction("Login", "Account");
-            }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             int IDdelUsuario = usuario.ID;
@@ -37,6 +35,8 @@ namespace TP07_ROTH.Controllers
         [HttpPost]
         public IActionResult CrearTareaGuardar(Tarea tarea)
         {
+            if (HttpContext.Session.GetString("EstaLogin") != "true")
+                return RedirectToAction("Login", "Account");
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             tarea.IDUsuario = usuario.ID;
@@ -67,7 +67,7 @@ namespace TP07_ROTH.Controllers
         }
         public IActionResult ModificarTarea(int id)
         {
-            return View("VerTarea");
+            return View();
         }
 
         [HttpPost]
@@ -75,15 +75,11 @@ namespace TP07_ROTH.Controllers
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
                 return RedirectToAction("Login", "Account");
-
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
             if (BD.ActualizarTarea(tarea))
                 return RedirectToAction("VerTareas");
-            ViewBag.Error = "No se pudo actualizar la tarea.";
             return View("ModificarTarea", tarea);
         }
-
-
     }
 }
