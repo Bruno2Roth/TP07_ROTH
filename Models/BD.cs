@@ -5,7 +5,8 @@ namespace TP07_ROTH.Models
 {
     public static class BD
     {
-        private static string _connectionString = "Server=localhost;Database=TP07_ROTH;Integrated Security=True;TrustServerCertificate=True;";
+        // private static string _connectionString = "Server=localhost;Database=TP07_ROTH;Integrated Security=True;TrustServerCertificate=True;";
+        private static string _connectionString = "Server=BRUNO_34\\SQLEXPRESS;Database=TP07_ROTH;Integrated Security=True;Encrypt=False;";
 
         public static Usuario ObtenerPorUsername(string username)
         {

@@ -14,20 +14,23 @@ namespace TP07_ROTH.Controllers
         [HttpPost]
         public IActionResult LoginPost(string Username, string Password)
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
-                ViewBag.Mensaje("Complete el usuario y la contraseña");
                 return View("Login");
             }
 
-            else if (BD.VerificarContraseña(Username, Password))
+            if (BD.VerificarContraseña(Username, Password))
             {
                 Usuario usuario = BD.ObtenerPorUsername(Username);
-                HttpContext.Session.SetString("Username", Username);
-                HttpContext.Session.SetString("EstaLogin", "true");
+                HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
+                HttpContext.Session.SetString("Username", usuario.Username);
+                HttpContext.Session.SetString("Logeado", "true");
+                return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
+            else
+            {
+                return View("Login");
+            }
         }
 
 
@@ -48,13 +51,14 @@ namespace TP07_ROTH.Controllers
 
             if (BD.Registro(usuario))
             {
-                return View("Login");
+                return RedirectToAction("Login");
             }
             else
             {
                 return View("Registro");
             }
         }
+        
 
 
         public IActionResult CerrarSesion()
