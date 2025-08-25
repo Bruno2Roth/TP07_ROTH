@@ -22,5 +22,16 @@ namespace TP07_ROTH.Models
         public Tarea()
         {
         }
+        public Tarea(int pID, int pIDUsuario, string pTitulo, string pDescripcion, DateTime pFecha, bool pFinalizada, bool pEliminada)
+        {
+            ID = pID;
+            IDUsuario = pIDUsuario;
+            Titulo = pTitulo;
+            Descripcion = pDescripcion;
+            Fecha = pFecha;
+            Finalizada = pFinalizada;
+            Eliminada = pEliminada;
+        }
+
     }
 }

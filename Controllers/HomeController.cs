@@ -80,10 +80,24 @@ namespace TP07_ROTH.Controllers
             BD.EliminarTarea(IDdelaTarea);
             return RedirectToAction("VerTareas");
         }
-        public IActionResult ModificarTarea(int ID)
+        public IActionResult Papelera()
         {
-            return View(BD.TraerTarea(ID));
+            if (HttpContext.Session.GetString("EstaLogin") != "true")
+            {
+                ViewBag.Error("Sesion no encontrada");
+                return RedirectToAction("Login", "Account");
+            }
+            List<Tarea> borradas = BD.Papelera(int.Parse(HttpContext.Session.GetString("IDdelUsuario")));
+
+            ViewBag.TareasBorradas = borradas;
+            return View();
         }
+        public IActionResult ModificarTarea(int IDdelaTarea)
+        {
+            ViewBag.modificartarea = BD.TraerTarea(IDdelaTarea);
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult ModificarTareaGuardar(Tarea tarea)
@@ -92,15 +106,15 @@ namespace TP07_ROTH.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            string username = HttpContext.Session.GetString("Username");
-            Usuario usuario = BD.ObtenerPorUsername(username);
-            if (BD.ActualizarTarea(tarea))
-            {
-                Console.WriteLine("we");
-                return RedirectToAction("Index");
-            }
-            Console.WriteLine("Rroror");
-            return View("VerTarea");
+
+            tarea = new(tarea.ID, tarea.IDUsuario, tarea.Titulo, tarea.Descripcion, tarea.Fecha, false, false);
+
+            int IDdelUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario"));
+            tarea.IDUsuario = IDdelUsuario;
+
+            BD.ActualizarTarea(tarea);
+            return RedirectToAction("Index");
         }
+
     }
 }

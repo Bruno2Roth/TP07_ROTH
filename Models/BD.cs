@@ -57,8 +57,6 @@ namespace TP07_ROTH.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                Console.WriteLine("Username recibido: " + usuario.Username);
-
                 string QueryExiste = "SELECT 1 FROM Usuarios WHERE Username = @Username";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { Username = usuario.Username });
                 if (existe != 1)
@@ -97,7 +95,7 @@ namespace TP07_ROTH.Models
             }
         }
 
-        public static bool EliminarTarea(int IDdelaTarea) //EliminarTarea
+        public static bool EliminarTarea(int IDdelaTarea)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -106,12 +104,21 @@ namespace TP07_ROTH.Models
                 {
                     string query = @"UPDATE Tareas SET Tareas.Eliminada = 1 WHERE Tareas.ID = @IDdelaTarea";
                     connection.Execute(query, new { IDdelaTarea = IDdelaTarea });
-                    return true; //"se elimino""
+                    return true;
                 }
                 else
                 {
-                    return false; //"no se elimino"
+                    return false;
                 }
+            }
+        }
+        public static List<Tarea> Papelera(int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Tareas WHERE IDUsuario = @IDUsuario AND Eliminada = 1";
+
+                return connection.Query<Tarea>(query, new { IDUsuario = IDUsuario }).ToList();
             }
         }
         public static bool ActualizarTarea(Tarea tarea)
@@ -120,19 +127,15 @@ namespace TP07_ROTH.Models
             {
                 string sql = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0 AND Finalizada = 0";
                 int existe = connection.QueryFirstOrDefault<int>(sql, new { ID = tarea.ID });
-                Console.WriteLine("ID recibido en ActualizarTarea: " + tarea.ID);
-                Console.WriteLine(existe);
                 if (existe == 1)
                 {
                     string query = @"UPDATE Tareas SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Finalizada = @Finalizada, Eliminada = @Eliminada WHERE ID = @ID";
 
                     connection.Execute(query, new { tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada, tarea.ID });
-                    Console.WriteLine("Tarea actualizada correctamente.");
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine("No se pudo actualizar la tarea. Verifique que la tarea exista y no esté eliminada o finalizada.");
                     return false;
                 }
 
@@ -150,11 +153,11 @@ namespace TP07_ROTH.Models
                 {
                     string query = @"UPDATE Tareas SET Finalizada = 1 WHERE ID = @ID";
                     connection.Execute(query, new { ID = IDdelaTarea });
-                    return true; //finalizada
+                    return true;
                 }
                 else
                 {
-                    return false; //no existe
+                    return false;
                 }
             }
         }
