@@ -33,9 +33,6 @@ namespace TP07_ROTH.Controllers
             }
         }
 
-
-
-
         public IActionResult Registro()
         {
             return View();

@@ -80,7 +80,7 @@ namespace TP07_ROTH.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string QueryExiste = "SELECT 1 FROM Tareas WHERE Titulo = @Titulo";
+                string QueryExiste = "SELECT 1 FROM Tareas WHERE Titulo = @Titulo AND Eliminada = 0";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { tarea.Titulo });
 
                 if (existe != 1)
@@ -88,7 +88,6 @@ namespace TP07_ROTH.Models
                     string query = @"INSERT INTO Tareas(IDUsuario, Titulo, Descripcion, Fecha, Finalizada, Eliminada) 
                                VALUES (@IDUsuario, @Titulo, @Descripcion, @Fecha, @Finalizada, @Eliminada)";
                     connection.Execute(query, new { tarea.IDUsuario, tarea.Titulo, tarea.Descripcion, tarea.Fecha, tarea.Finalizada, tarea.Eliminada });
-
                     return true;
                 }
                 else
@@ -121,7 +120,7 @@ namespace TP07_ROTH.Models
             {
                 string sql = "SELECT 1 FROM Tareas WHERE ID = @ID AND Eliminada = 0 AND Finalizada = 0";
                 int existe = connection.QueryFirstOrDefault<int>(sql, new { ID = tarea.ID });
-
+                Console.WriteLine("ID recibido en ActualizarTarea: " + tarea.ID);
                 Console.WriteLine(existe);
                 if (existe == 1)
                 {

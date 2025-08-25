@@ -15,15 +15,20 @@ namespace TP07_ROTH.Controllers
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
             {
-                ViewBag.Error("Sesion no encontrada");
+                ViewBag.Error = "Sesion no encontrada";
                 return RedirectToAction("Login", "Account");
             }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            int IDdelUsuario = usuario.ID;
-            ViewBag.Tareas = BD.TraerTareas(IDdelUsuario);
+            if (usuario == null)
+            {
+                ViewBag.Error = "Usuario no encontrado";
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.Tareas = BD.TraerTareas(usuario.ID);
             return View("VerTarea");
         }
+
         public IActionResult VerTareas()
         {
             return CargarTareas();
@@ -46,7 +51,7 @@ namespace TP07_ROTH.Controllers
             tarea.IDUsuario = usuario.ID;
             tarea.Eliminada = false;
             tarea.Finalizada = false;
-            tarea.Fecha = DateTime.Now;
+
             if (BD.CrearTarea(tarea))
                 return RedirectToAction("Index");
             return View("CrearTarea");
@@ -65,7 +70,7 @@ namespace TP07_ROTH.Controllers
         }
         public IActionResult EliminarTarea(int IDdelaTarea)
         {
-           if (HttpContext.Session.GetString("EstaLogin") != "true")
+            if (HttpContext.Session.GetString("EstaLogin") != "true")
             {
                 ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
@@ -75,9 +80,9 @@ namespace TP07_ROTH.Controllers
             BD.EliminarTarea(IDdelaTarea);
             return RedirectToAction("VerTareas");
         }
-        public IActionResult ModificarTarea(int id)
+        public IActionResult ModificarTarea(int ID)
         {
-            return View();
+            return View(BD.TraerTarea(ID));
         }
 
         [HttpPost]
@@ -85,14 +90,17 @@ namespace TP07_ROTH.Controllers
         {
             if (HttpContext.Session.GetString("EstaLogin") != "true")
             {
-                ViewBag.Error("Sesion no encontrada");
                 return RedirectToAction("Login", "Account");
             }
             string username = HttpContext.Session.GetString("Username");
             Usuario usuario = BD.ObtenerPorUsername(username);
-            if(BD.ActualizarTarea(tarea)){
+            if (BD.ActualizarTarea(tarea))
+            {
+                Console.WriteLine("we");
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("VerTareas");
+            Console.WriteLine("Rroror");
+            return View("VerTarea");
         }
     }
 }
